@@ -155,7 +155,7 @@ class Gpx {
                 trkpt: tracks
             };
         });
-        let trk = []
+        let trk = [];
         gpxObject.trk.map((trkseg) => {
             trk.push(trkseg.map( (tracks) => {
                 toISOString(tracks);

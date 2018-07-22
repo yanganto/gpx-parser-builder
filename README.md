@@ -30,7 +30,7 @@ gpx.parse('<?xml version="1.0" encoding="utf-8" standalone="no"?> <gpx xmlns:xsi
 window.console.dir(gpx.metadata);
 window.console.dir(gpx.waypoints);
 window.console.dir(gpx.trackSegments);
-window.console.dir(gpx.track);
+window.console.dir(gpx.tracks);
 
 // Build gpx
 window.console.log(gpx.toString());
@@ -97,8 +97,8 @@ FileSaver.saveAs(blob, 'Shuiyang-Forest.gpx');
 
 ## Author
 
-Zheng-Xiang Ke, kf99916@gmail.com
-Antonio Yang, yanganto@gmail.com
+- Zheng-Xiang Ke, kf99916@gmail.com
+- Antonio Yang, yanganto@gmail.com
 
 ## License
 
