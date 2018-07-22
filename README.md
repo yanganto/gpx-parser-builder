@@ -14,7 +14,7 @@ gpx-parser-builder is written with ECMAScript 6. You can leverage [Babel](https:
 ## Installation
 
 ```bash
-npm install gpx-parser-builder --save
+npm install git+https://git@github.com/yanganto/gpx-parser-builder.git --save
 ```
 
 ## Usage
@@ -30,6 +30,7 @@ gpx.parse('<?xml version="1.0" encoding="utf-8" standalone="no"?> <gpx xmlns:xsi
 window.console.dir(gpx.metadata);
 window.console.dir(gpx.waypoints);
 window.console.dir(gpx.trackSegments);
+window.console.dir(gpx.track);
 
 // Build gpx
 window.console.log(gpx.toString());
@@ -97,6 +98,7 @@ FileSaver.saveAs(blob, 'Shuiyang-Forest.gpx');
 ## Author
 
 Zheng-Xiang Ke, kf99916@gmail.com
+Antonio Yang, yanganto@gmail.com
 
 ## License
 

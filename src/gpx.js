@@ -59,6 +59,7 @@ class Gpx {
         this.metadata = metadata || [];
         this.waypoints = [];
         this.trackSegments = [];
+        this.tracks = [];
     }
 
     addWaypoint(waypoint) {
@@ -114,6 +115,21 @@ class Gpx {
                     return;
                 });
             }
+            if (gpx.trk) {
+                this.tracks = gpx.trk.map((trk) => {
+                    if (trk.trkseg) {
+                      return  trk.trkseg.map((trackSegment) => {
+                          if (trackSegment.trkpt) {
+                              parseDate(trackSegment.trkpt);
+                              return trackSegment.trkpt;
+                          }
+                          return;
+                      });
+                      
+                    }
+                    return;
+                });
+            }
         });
 
         return error;
@@ -127,7 +143,8 @@ class Gpx {
             $: this.gpxAttr,
             metadata: this.metadata,
             wpt: this.waypoints,
-            trkseg: this.trackSegments
+            trkseg: this.trackSegments,
+            trk: this.tracks
         };
 
         toISOString(gpxObject.metadata);
@@ -138,6 +155,16 @@ class Gpx {
                 trkpt: tracks
             };
         });
+        let trk = []
+        gpxObject.trk.map((trkseg) => {
+            trk.push(trkseg.map( (tracks) => {
+                toISOString(tracks);
+                return {
+                    trkpt: tracks
+                };
+            }))
+        });
+        gpxObject.trk = trk;
 
         const builder = new xml2js.Builder(options);
         return builder.buildObject(gpxObject);
