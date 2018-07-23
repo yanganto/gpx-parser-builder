@@ -74,6 +74,7 @@ var Gpx = function () {
         this.metadata = metadata || [];
         this.waypoints = [];
         this.trackSegments = [];
+        this.tracks = [];
     }
 
     _createClass(Gpx, [{
@@ -135,6 +136,20 @@ var Gpx = function () {
                         return;
                     });
                 }
+                if (gpx.trk) {
+                    _this.tracks = gpx.trk.map(function (trk) {
+                        if (trk.trkseg) {
+                            return trk.trkseg.map(function (trackSegment) {
+                                if (trackSegment.trkpt) {
+                                    parseDate(trackSegment.trkpt);
+                                    return trackSegment.trkpt;
+                                }
+                                return;
+                            });
+                        }
+                        return;
+                    });
+                }
             });
 
             return error;
@@ -149,7 +164,8 @@ var Gpx = function () {
                 $: this.gpxAttr,
                 metadata: this.metadata,
                 wpt: this.waypoints,
-                trkseg: this.trackSegments
+                trkseg: this.trackSegments,
+                trk: this.tracks
             };
 
             toISOString(gpxObject.metadata);
@@ -160,6 +176,16 @@ var Gpx = function () {
                     trkpt: tracks
                 };
             });
+            var trk = [];
+            gpxObject.trk.map(function (trkseg) {
+                trk.push(trkseg.map(function (tracks) {
+                    toISOString(tracks);
+                    return {
+                        trkpt: tracks
+                    };
+                }));
+            });
+            gpxObject.trk = trk;
 
             var builder = new _xml2js2.default.Builder(options);
             return builder.buildObject(gpxObject);
